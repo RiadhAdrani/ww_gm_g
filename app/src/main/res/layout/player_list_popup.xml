@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    >
 
     <TextView
-        android:id="@+id/powerText"
-        android:text="@string/power_text_placeholder"
+        android:id="@+id/RoleText"
+        android:text="@string/role_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="28sp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/scrollable"
+        style="@style/RoleNameStyle"
+        android:layout_weight="0.5"
         />
+
+    <TextView
+    android:id="@+id/powerText"
+    android:text="@string/power_text_placeholder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="12sp"
+    android:layout_marginBottom="8dp"
+    android:gravity="center"
+    style="@style/RoleCardOwnerTextStyle"
+    android:layout_weight="1"
+    />
+
+    <TextView
+        android:id="@+id/targetsText"
+        android:text="@string/role_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        style="@style/RoleCardOwnerTextStyle"
+        android:layout_weight="1"
+        />
+
 
     <LinearLayout
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/powerText"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        >
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -250,5 +274,14 @@
         </ScrollView>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:text="@string/action2_button"
+        style="@style/BigButtonStyle"
+        android:layout_margin="8dp"/>
     
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
