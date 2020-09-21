@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorSecondaryDark">
+
+
+    <EditText
+        android:id="@+id/popup_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="sans-serif"
+        android:hint="@string/owner_hint"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColorHint="@color/colorHint"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:maxLines="1"
+        />
+
+    <TextView
+        android:layout_margin="0dp"
+        android:id="@+id/as_static"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/RoleDescriptionStyle"
+        android:gravity="center"
+        android:text="as"
+        />
+
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/popup_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/RoleNameStyleSmaller"
+        android:gravity="center"
+        android:text="@string/role_placeholder"
+        />
+
+    <Button
+        android:id="@+id/popup_confirm"
+        style="@style/ButtonStyle"
+        android:layout_gravity="center"
+        android:text="@string/confirm_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"/>
+
+</LinearLayout>

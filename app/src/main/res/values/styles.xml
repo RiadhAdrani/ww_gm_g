@@ -1,0 +1,247 @@
+<resources>
+    <!-- Base application theme. -->
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TitleStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="TitleStyleSmaller">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="RoleNameStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="RoleNameStyleSmaller">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="RoleTeamStyle">
+        <item name="android:textColor">@color/colorMinor</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="RoleDescriptionStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+
+    <style name="ButtonStyle">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+
+    <style name="elementLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+
+    <style name="checkBoxStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="MiniRoleNameStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:text">@string/role_placeholder</item>
+    </style>
+
+    <style name="MiniRoleDescriptionStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:text">@string/description_placeholder</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MiniTeamNameStyle">
+        <item name="android:textColor">@color/colorMinor</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.5</item>
+        <item name="android:text">@string/team_placeholder</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- GAME_ACTIVITY SPECIFIC STYLE -->
+
+    <style name="turn">
+            <item name="android:textColor">@color/colorMinor</item>
+            <item name="textAllCaps">true</item>
+            <item name="android:textStyle">bold</item>
+            <item name="fontFamily">monospace</item>
+            <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="nowPlaying">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="nowOwner">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">italic</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="nowInfo">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="RoleNameStyleBig">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">40sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">45sp</item>
+        <item name="autoSizeMinTextSize">30sp</item>
+    </style>
+
+    <style name="ActionButtonStyle">
+    <item name="android:background">@color/colorPrimaryDark</item>
+    <item name="android:textColor">@color/colorAccent</item>
+    <item name="fontFamily">casual</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">14sp</item>
+</style>
+
+    <style name="BigButtonStyle">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="GameTitleStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">casual</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- POWER POP UP MENU STYLE -->
+    <style name="RoleCardStyle">
+        <item name="android:background">@color/colorSecondaryDark</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">75dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="RoleCardOwnerTextStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">italic</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">@string/owner_placeholder</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RoleCardButtonStyle">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">@string/action1_button</item>
+    </style>
+
+</resources>

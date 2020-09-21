@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">Werewolf : Game Master Guide</string>
+
+    <string name="pick_button">PICK</string>
+    <string name="reset_button">RESET</string>
+    <string name="start_button">START</string>
+    <string name="confirm_button">CONFIRM</string>
+    <string name="action1_button">ACTION 1</string>
+    <string name="action2_button">ACTION 2</string>
+    <string name="next_button">NEXT</string>
+
+    <string name="role_placeholder">ROLE</string>
+    <string name="description_placeholder">The description of the picked role will be displayed here.</string>
+    <string name="info_placeholder">Information required by the role to do his job this night …</string>
+    <string name="team_placeholder">TEAM</string>
+    <string name="owner_placeholder">unknown</string>
+    <string name="owner_hint">player name</string>
+    <string name="turn">Turn :</string>
+    <string name="turn_count">00</string>
+    <string name="now_playing">now playing :</string>
+    <string name="power_text_placeholder">What will you do today \?</string>
+
+    <string name="team_villager">VILLAGER</string>
+    <string name="team_wolves">WOLVES</string>
+    <string name="team_solo">SOLO</string>
+
+    <string name="guardian">Guardian</string>
+    <string name="guardianDesc">Protector of the village.</string>
+
+    <string name="wolf">Werewolf</string>
+    <string name="wolfDesc">Basically a werewolf.</string>
+
+    <string name="fatherWolf">Father Infect</string>
+    <string name="fatherWolfDesc">An old werewolf with the ability to infect someone.</string>
+
+    <string name="sorcerer">Sorcerer</string>
+    <string name="sorcererDesc">A sorcerer with 2 potions : Death and Revival.</string>
+
+    <string name="seer">Seer</string>
+    <string name="seerDesc">Knows the unknown </string>
+
+    <string name="barber">Barber</string>
+    <string name="barberDesc">You don\'t want to kill this specific \"Barber\".</string>
+
+    <string name="alien">Alien</string>
+    <string name="alienDesc">Pretending to be a human being</string>
+
+    <string name="captain">Captain</string>
+    <string name="captainDesc">A captain with no apparent power.</string>
+
+    <string name="simpleVillager">Simple Villager</string>
+    <string name="simpleVillagerDesc">This simple villager has no special power, or doesn\'t he?</string>
+
+    <string name="servant">Servant</string>
+    <string name="servantDesc">Will you serve the village or rule in the wolf pack\? Or perhaps… </string>
+
+    <string name="knight">Knight</string>
+    <string name="knightDesc">What will happens when a soldier can\'t recognize his friends or foes\? </string>
+
+    <string name="blackWolf">Black Wolf</string>
+    <string name="blackWolfDesc">Enemies are muted with his presence.</string>
+
+    <string name="bear">Bear</string>
+    <string name="bearDesc">This animal makes a sound near the un-friendlies.</string>
+
+    <string name="cupid">Cupid</string>
+    <string name="cupidDesc">Which two will be bound together by the power of \"LOVE\"\?</string>
+
+    <string name="wildChild">Wild Child</string>
+    <string name="wildChildDesc">Seems to be a totally normal and friendly child, or perhaps…</string>
+
+    <string name="redWolf">Red Wolf</string>
+    <string name="redWolfDesc">Render his enemies powerless.</string>
+
+    <string name="shepherd">Shepherd</string>
+    <string name="shepherdDesc">Sacrifice his two sheep to unveil the wolves.</string>
+
+    <string name="pyromaniac">Pyromaniac</string>
+    <string name="pyromaniacDesc">The wolves fear the flames.</string>
+
+    <string name="blueWolf">Blue Wolf</string>
+    <string name="blueWolfDesc">The nature of this wolf is uncertain for the villagers.</string>
+
+</resources>

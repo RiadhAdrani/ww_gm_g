@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/powerText"
+        android:text="@string/power_text_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginTop="28sp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scrollable"
+        />
+
+    <LinearLayout
+        android:id="@+id/scrollable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/powerText"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/blackWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/blackWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/blackWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/blueWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/blueWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/blueWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/redWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/redWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/redWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/wWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/wWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/fWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/fWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/servantCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/servantOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/servantAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wildCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/wildOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/wildAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cupidCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/cupidOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/cupidAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/guardCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/guardOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/guardAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sorcererCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/sorcererOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/sorcererAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sheepCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/sheepOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/sheepAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/seerCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/seerOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/seerAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/knightCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/knightOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/knightAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/barberCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/barberOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/barberAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cptCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/cptOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/cptAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/vOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/vAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/pOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/pAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/aCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/aOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/aAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bearCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/bearOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/bearAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

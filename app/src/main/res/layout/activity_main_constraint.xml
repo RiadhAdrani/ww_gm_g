@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        style="@style/GameTitleStyle"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/role_name"
+        />
+
+    <TextView
+        android:id="@+id/role_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/role_placeholder"
+        style="@style/RoleNameStyle"
+        app:layout_constraintTop_toBottomOf="@id/id"
+        />
+
+    <TextView
+        android:id="@+id/role_team"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center_horizontal"
+        android:text="@string/team_placeholder"
+        style="@style/RoleTeamStyle"
+        app:layout_constraintTop_toBottomOf="@id/role_name"
+        />
+
+    <TextView
+        android:id="@+id/role_desc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/description_placeholder"
+        style="@style/RoleDescriptionStyle"
+        app:layout_constraintTop_toBottomOf="@id/role_team"
+        android:minLines="2"
+        />
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/role_desc">
+        <Button
+            android:id="@+id/pick_button"
+            android:layout_width="15dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_button"
+            style="@style/ButtonStyle"/>
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="15dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_button"
+            style="@style/ButtonStyle"/>
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="15dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/start_button"
+            style="@style/ButtonStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:background="@color/colorSecondaryDark"
+        app:layout_constraintTop_toBottomOf="@id/buttons_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp">
+
+            <LinearLayout
+                android:id="@+id/role_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="4dp">
+
+
+                <!-- GUARDIAN -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/guardian_checkBox"
+                    android:checked="true"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/guardian_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/guardian_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/guardian_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- WEREWOLF -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/wolf_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/wolf_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/wolf_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/wolf_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- FATHER WOLF --> <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/father_wolf_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/father_wolf_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/father_wolf_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/father_wolf_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- SORCERER -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/sorcerer_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/sorcerer_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/sorcerer_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/sorcerer_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- SEER -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/seer_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/seer_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/seer_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/seer_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- BARBER -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/barber_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/barber_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/barber_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/barber_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- ALIEN -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/alien_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/alien_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/alien_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/alien_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- CAPTAIN -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/captain_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/captain_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/captain_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/captain_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- VILLAGER -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/villager_checkBox"
+                    style="@style/checkBoxStyle"
+                    android:checked="true"/>
+                <TextView
+                    android:id="@+id/villager_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/villager_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/villager_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- SERVANT -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/servant_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/servant_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/servant_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/servant_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- KNIGHT -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/knight_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/knight_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/knight_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/knight_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- BLACK WOLF -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/black_wolf_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/black_wolf_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/black_wolf_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/black_wolf_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- BEAR -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/bear_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/bear_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/bear_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/bear_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- CUPID -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/cupid_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/cupid_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/cupid_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/cupid_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- WILD CHILD -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/wild_child_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/wild_child_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/wild_child_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/wild_child_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- RED WOLF -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/red_wolf_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/red_wolf_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/red_wolf_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/red_wolf_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- SHEPHERD -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/shepherd_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/shepherd_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/shepherd_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/shepherd_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- PYROMANIAC -->   <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/pyromaniac_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/pyromaniac_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/pyromaniac_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/pyromaniac_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+                <!-- BLUE WOLF -->
+                <LinearLayout
+                style="@style/elementLinearLayoutStyle"
+                android:layout_margin="2dp">
+                <CheckBox
+                    android:id="@+id/blue_wolf_checkBox"
+                    style="@style/checkBoxStyle"/>
+                <TextView
+                    android:id="@+id/blue_wolf_name"
+                    style="@style/MiniRoleNameStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/blue_wolf_desc"
+                    style="@style/MiniRoleDescriptionStyle"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/blue_wolf_team"
+                    style="@style/MiniTeamNameStyle"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
