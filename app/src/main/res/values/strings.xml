@@ -1,17 +1,5 @@
 <resources>
-
-    <!-- DO NOT OVERRIDE ANYTHING !!! -->
-    <!-- ADDITION IS WELCOME -->
-
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- STATIC -->
-
     <string name="app_name">Werewolf : Game Master Guide</string>
-
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ADD BUTTONS TEXT HERE -->
 
     <string name="pick_button">PICK</string>
     <string name="reset_button">RESET</string>
@@ -20,10 +8,6 @@
     <string name="action1_button">ACTION 1</string>
     <string name="action2_button">ACTION 2</string>
     <string name="next_button">NEXT</string>
-
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ADD GENERAL PURPOSE TEXT HERE -->
 
     <string name="role_placeholder">ROLE</string>
     <string name="description_placeholder">The description of the picked role will be displayed here.</string>
@@ -34,26 +18,11 @@
     <string name="turn">Turn :</string>
     <string name="turn_count">00</string>
     <string name="now_playing">now playing :</string>
-    <string name="start_new_turn_alert">Press \"NEXT\" to start the next turn !</string>
-    <string name="discuss">DISCUSS</string>
-    <string name="all_players">ALL PLAYERS</string>
-    <string name="all_players_discuss">PLAYERS ARE INVITED TO DISCUSS WHAT HAPPENED THIS NIGHT AND ACCUSE SOMEONE EXPECTED TO BE A WOLF</string>
     <string name="power_text_placeholder">What will you do today \?</string>
-    <string name="not_available">NOT AVAILABLE</string>
-    <string name="no_target">NO TARGET</string>
-    <string name="info2_placeholder">This night something happened …</string>
-
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ADD TEAMS HERE -->
 
     <string name="team_villager">VILLAGER</string>
     <string name="team_wolves">WOLVES</string>
     <string name="team_solo">SOLO</string>
-
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-    <!-- ADD ROLES HERE -->
 
     <string name="guardian">Guardian</string>
     <string name="guardianDesc">Protector of the village.</string>
