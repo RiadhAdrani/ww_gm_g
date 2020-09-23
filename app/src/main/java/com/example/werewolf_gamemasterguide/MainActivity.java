@@ -26,31 +26,40 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
+    // Roles declaration
+    // Add other roles declaration below
     Role guardian,wolf,fatherWolf,sorcerer,seer,barber,alien,captain,simpleVillager,servant,
         knight,blackWolf,bear,cupid,wildChild,redWolf,shepherd,pyromaniac,blueWolf;
 
-    ArrayList<Role> completeList = new ArrayList<Role>();
-    ArrayList<Role> gameList = new ArrayList<Role>();
-    ArrayList<Role> pickingList = new ArrayList<Role>();
-    LinearLayout roleListLayout;
-    TextView roleNameView;
-    TextView roleDescView;
-    TextView roleTeamView;
-    PopupWindow popUpWindow;
+    ArrayList<Role> completeList = new ArrayList<Role>(); // Include the complete list of roles
+    ArrayList<Role> gameList = new ArrayList<Role>();   // include role chosen by the user
+    ArrayList<Role> pickingList = new ArrayList<Role>();    // basically gameList, it will decrease
+                                                         // each time a role is given to a player.
 
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog dialog;
-    EditText popUpName;
-    TextView popUpRole;
-    Button popUpButton;
+    TextView roleNameView;  // role Name to be displayed when picked
+    TextView roleDescView;  // role Description to be displayed when picked
+    TextView roleTeamView;  // role Team to be displayed when picked
 
-    int x = -1;
+    AlertDialog.Builder dialogBuilder; // Builder for the pop up window
+    AlertDialog dialog; // AlertDialog for the pop up window
+
+    EditText popUpName; // Editable text for the game master to fill with the picked role owner
+    TextView popUpRole; // A reminder for the game master
+    Button popUpButton; // confirm given name
+                        // could be skipped, an "unknown" name will be given instead
+
+    int x = -1; // general purpose counter
+                // do not remove or override initial value
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Include important initialization necessary for the activity to work properly
+        // Initializing UI elements
+        // Initializing Roles
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_constraint);
-        roleListLayout = findViewById(R.id.role_list);
 
         roleNameView = findViewById(R.id.role_name);
         roleDescView = findViewById(R.id.role_desc);
@@ -94,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 displayShortToast(""+getString(gameList.get(gameList.indexOf(pickingList.get(x))).name)+" is now named: "+gameList.get(gameList.indexOf(pickingList.get(x))).owner);
-                // displayShortToast(+pickingList.size()+" roles left !");
                 pickingList.remove(x);
                 dialog.dismiss();
             }
