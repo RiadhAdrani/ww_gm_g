@@ -6,6 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
+    <!-- DO NOT MODIFY IF YOU ARE DON'T KNOW -->
+    <!-- WHAT YOU ARE DOING -->
+
     <TextView
         android:id="@+id/id"
         android:layout_width="match_parent"

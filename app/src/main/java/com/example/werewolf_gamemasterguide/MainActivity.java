@@ -110,6 +110,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void initialize(){
+        // Executing the constructor of each declared variable here
+        // NOTES FOR MODIFICATION
+        // ADD YOUR CONSTRUCTOR IN THE SECTION BELOW
+        // DO NOT MODIFY ANY CONSTRUCTOR OF ANY EXISTING ROLE
+        // YOU MAY NEED TO ADD ROLE NAME, DESCRIPTION AND SOME OTHER INFORMATION TO THE STRING RESOURCE FILE
 
         // BLUE WOLF
         blueWolf = new Role(ROLES.BLUE_WOLF,TEAM.WOLVES,"empty",R.string.blueWolf,R.string.blueWolfDesc,
@@ -280,6 +285,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (TextView) findViewById(R.id.bear_desc),
                 (TextView) findViewById(R.id.bear_team));
         completeList.add(bear);
+
+        // ------------------------------------------------------------------------------------------------------
+        // ADD NEW ROLES HERE
+        // ADD EACH ROLE TO THE ArrayList called"completeList"
+
+        // NEW ROLE
+        // completeList.add(newRole)
+        // ------------------------------------------------------------------------------------------------------
+
     }
 
     void drawLayout(){
