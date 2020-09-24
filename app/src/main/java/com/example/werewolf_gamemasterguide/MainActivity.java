@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 if (!popUpName.getText().toString().isEmpty()){
                     gameList.get(gameList.indexOf(pickingList.get(x))).owner = popUpName.getText().toString();
+                    completeList.get(completeList.indexOf(pickingList.get(x))).owner = popUpName.getText().toString();
                 }else{
                     gameList.get(gameList.indexOf(pickingList.get(x))).owner = getString(R.string.owner_placeholder);
+                    completeList.get(completeList.indexOf(pickingList.get(x))).owner = getString(R.string.owner_placeholder);
                 }
 
                 displayShortToast(""+getString(gameList.get(gameList.indexOf(pickingList.get(x))).name)+" is now named: "+gameList.get(gameList.indexOf(pickingList.get(x))).owner);
@@ -325,7 +327,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void startGame(){
         Intent i = new Intent(this,GameActivity.class);
-        i.putExtra("list", gameList);
+        i.putExtra("gameList", gameList);
+        i.putExtra("fullList",completeList);
         startActivity(i);
     }
 
@@ -343,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             roleDescView.setText(pickingList.get(x).desc);
             roleTeamView.setText(TeamToString(pickingList.get(x).team));
             createPopUpWindow();
-            // pickingList.remove(x);
 
         }else {
             roleNameView.setText(R.string.role_placeholder);

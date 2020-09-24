@@ -1,5 +1,6 @@
 package com.example.werewolf_gamemasterguide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
@@ -18,11 +19,9 @@ import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity implements java.io.Serializable {
 
-    Turn guardian,wolf,fatherWolf,sorcerer,seer,barber,alien,captain,simpleVillager,servant,
-            knight,blackWolf,bear,cupid,wildChild,redWolf,shepherd,pyromaniac,blueWolf;
-
-    ArrayList<Turn> turnList = new ArrayList<Turn>();
+    ArrayList<Role> fullList = new ArrayList<Role>();
     ArrayList<Role> gameList = new ArrayList<Role>();
+    ArrayList<Role> targetList = new ArrayList<Role>();
     Button nextButton;
     Button useButton;
     TextView turnCount;
@@ -31,10 +30,11 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     TextView roleInfo;
     int r = -1;
     int turn = 1;
-    int i = 0;
 
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
+
+    View popWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,35 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            gameList = (ArrayList<Role>) extras.getSerializable("list");
+            fullList = (ArrayList<Role>) extras.getSerializable("fullList");
+        } else {
+            displayShortToast("!!! ERROR WITH PLAYER LIST, RETURNING TO PICKING ACTIVITY !!!");
+            Intent i = new Intent(this,MainActivity.class);
+            startActivity(i);
+        }
+
+        gameList.clear();
+        popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
+
+        displayShortToast("List size : "+getString(fullList.get(0).name));
+
+
+        for (Role x : fullList) {
+            switch(x.role){
+                case BLUE_WOLF: x.popCard = popWindow.findViewById(R.id.blueWCard);
+                                x.popOwner = popWindow.findViewById(R.id.blueWOwner);
+                                x.popButton = popWindow.findViewById(R.id.blueWAction);
+                                break;
+                case GUARDIAN:  x.popCard = popWindow.findViewById(R.id.guardCard);
+                                x.popOwner = popWindow.findViewById(R.id.guardOwner);
+                                x.popButton = popWindow.findViewById(R.id.guardAction);
+                                break;
+            }
+
+            if (!x.isChecked){
+                x.popCard.removeAllViews();
+            }
+            else gameList.add(x);
         }
 
         turnCount = findViewById(R.id.turn_count);
@@ -66,17 +94,12 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
                 usePower();
             }
         });
-
     }
 
     void usePower(){
         dialogBuilder = new AlertDialog.Builder(this);
 
-        final View popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
-
-        // LinearLayout root = popWindow.findViewById(R.id.root);
-
-        // View x = getLayoutInflater().inflate(R.layout.element_popup,root);
+        hardcodedPopUpWindowInitialization(popWindow);
 
         dialogBuilder.setView(popWindow);
         dialog = dialogBuilder.create();
@@ -108,6 +131,29 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             role.setText(gameList.get(r).name);
             roleOwner.setText(gameList.get(r).owner);
             roleInfo.setText(gameList.get(r).desc);
+        }
+    }
+
+    void hardcodedPopUpWindowInitialization(View popWindow){
+        // Hardcoding every single role into the pop up window
+        // displaying owner name
+        // overriding every button
+
+        // ---------------------------------------------------------------------------------------
+        // Blue WOLF
+        for (int i = 0; i < fullList.size(); i++){
+
+            if (fullList.get(i).role == ROLES.BLUE_WOLF){
+                gameList.get(gameList.indexOf(fullList.get(i))).popCard = popWindow.findViewById(R.id.blueWCard);
+            }
+
+            if (fullList.get(i).isChecked){
+                gameList.get(gameList.indexOf(fullList.get(i))).list = targetList;
+                gameList.get(gameList.indexOf(fullList.get(i))).popOwner = popWindow.findViewById(R.id.blueWOwner);
+                gameList.get(gameList.indexOf(fullList.get(i))).popOwner.setText(gameList.get(gameList.indexOf(fullList.get(i))).owner);
+                gameList.get(gameList.indexOf(fullList.get(i))).popButton = popWindow.findViewById(R.id.blueWAction);
+
+            }else gameList.get(gameList.indexOf(fullList.get(i))).popCard.removeAllViews();
         }
     }
 
