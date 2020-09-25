@@ -313,10 +313,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         x = -1;
         for (int i = 0;i < completeList.size();i++){
             if (completeList.get(i).checkBox.isChecked()){
+                completeList.get(i).isChecked = true;
                 completeList.get(i).owner = getString(R.string.owner_placeholder);
                 gameList.add(completeList.get(i));
                 pickingList.add(completeList.get(i));
             }
+            else completeList.get(i).isChecked = false;
         }
 
         Toast toast = Toast.makeText(getApplicationContext(),
@@ -327,8 +329,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void startGame(){
         Intent i = new Intent(this,GameActivity.class);
-        i.putExtra("gameList", gameList);
-        i.putExtra("fullList",completeList);
+        i.putExtra("gameList", (Serializable) gameList);
+        i.putExtra("fullList", (Serializable) completeList);
         startActivity(i);
     }
 

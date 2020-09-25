@@ -37,17 +37,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/blackWCard"
-                    style="@style/RoleCardStyle">
-                    <TextView
-                        android:id="@+id/blackWOwner"
-                        style="@style/RoleCardOwnerTextStyle"/>
-                    <Button
-                        android:id="@+id/blackWAction"
-                        style="@style/RoleCardButtonStyle"/>
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/blueWCard"
                     style="@style/RoleCardStyle">
                     <TextView
@@ -55,6 +44,17 @@
                         style="@style/RoleCardOwnerTextStyle"/>
                     <Button
                         android:id="@+id/blueWAction"
+                        style="@style/RoleCardButtonStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/blackWCard"
+                    style="@style/RoleCardStyle">
+                    <TextView
+                        android:id="@+id/blackWOwner"
+                        style="@style/RoleCardOwnerTextStyle"/>
+                    <Button
+                        android:id="@+id/blackWAction"
                         style="@style/RoleCardButtonStyle"/>
                 </LinearLayout>
 

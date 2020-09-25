@@ -30,6 +30,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     TextView roleInfo;
     int r = -1;
     int turn = 1;
+    int i ;
 
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
@@ -42,19 +43,13 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         setContentView(R.layout.game_activity);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            fullList = (ArrayList<Role>) extras.getSerializable("fullList");
-        } else {
-            displayShortToast("!!! ERROR WITH PLAYER LIST, RETURNING TO PICKING ACTIVITY !!!");
-            Intent i = new Intent(this,MainActivity.class);
-            startActivity(i);
-        }
 
-        gameList.clear();
+        gameList = (ArrayList<Role>) extras.getSerializable("gameList");
+        fullList = (ArrayList<Role>) extras.getSerializable("fullList");
+
+
+        // gameList.clear();
         popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
-
-        displayShortToast("List size : "+getString(fullList.get(0).name));
-
 
         for (Role x : fullList) {
             switch(x.role){
@@ -69,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             }
 
             if (!x.isChecked){
-                x.popCard.removeAllViews();
+                // x.popCard.removeAllViews();
             }
             else gameList.add(x);
         }
@@ -99,7 +94,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     void usePower(){
         dialogBuilder = new AlertDialog.Builder(this);
 
-        hardcodedPopUpWindowInitialization(popWindow);
+        // hardcodedPopUpWindowInitialization(popWindow);
 
         dialogBuilder.setView(popWindow);
         dialog = dialogBuilder.create();

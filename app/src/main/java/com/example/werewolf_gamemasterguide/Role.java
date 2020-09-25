@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class Role implements java.io.Serializable {
 
-    transient ROLES role;
-    transient TEAM team;
+    ROLES role;
+    TEAM team;
 
     String owner;
     int name;
