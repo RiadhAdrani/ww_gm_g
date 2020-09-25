@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -20,6 +21,8 @@ public class Role implements java.io.Serializable {
     int desc;
 
     boolean isChecked = false;
+    boolean isAlive = true;
+    boolean isKilled = false;
 
     transient CheckBox checkBox;
     transient TextView nameText;
@@ -30,7 +33,10 @@ public class Role implements java.io.Serializable {
     transient TextView popOwner;
     transient Button popButton;
 
+    int listMaxSize = 0;
+    String temp = "empty";
     transient ArrayList<Role> list = new ArrayList<Role>();
+    transient TextView listText;
 
     public Role(ROLES role, TEAM team, String owner, int name, int desc, CheckBox checkBox, TextView nameText, TextView descText, TextView teamText) {
         this.role = role;
@@ -48,10 +54,15 @@ public class Role implements java.io.Serializable {
         popButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.add(Role.this);
+                if (listMaxSize == list.size()) list.remove(0);;
+                {list.add(Role.this);}
+
+                for (Role role1 : list) {
+                    temp += " "+ role1.owner;
+                }
+
+                listText.setText(temp);
             }
         });
-
     }
-
 }

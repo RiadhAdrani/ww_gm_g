@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     TextView roleInfo;
     int r = -1;
     int turn = 1;
-    int i ;
+    int targetListMaxSize = 1;
 
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
@@ -47,27 +47,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         gameList = (ArrayList<Role>) extras.getSerializable("gameList");
         fullList = (ArrayList<Role>) extras.getSerializable("fullList");
 
-
-        // gameList.clear();
         popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
-
-        for (Role x : fullList) {
-            switch(x.role){
-                case BLUE_WOLF: x.popCard = popWindow.findViewById(R.id.blueWCard);
-                                x.popOwner = popWindow.findViewById(R.id.blueWOwner);
-                                x.popButton = popWindow.findViewById(R.id.blueWAction);
-                                break;
-                case GUARDIAN:  x.popCard = popWindow.findViewById(R.id.guardCard);
-                                x.popOwner = popWindow.findViewById(R.id.guardOwner);
-                                x.popButton = popWindow.findViewById(R.id.guardAction);
-                                break;
-            }
-
-            if (!x.isChecked){
-                // x.popCard.removeAllViews();
-            }
-            else gameList.add(x);
-        }
 
         turnCount = findViewById(R.id.turn_count);
         role = findViewById(R.id.role_name);
@@ -86,6 +66,9 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         useButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (r == -1){
+                    displayShortToast("CLICK NEXT TO START A NEW TURN !");
+                } else
                 usePower();
             }
         });
@@ -94,11 +77,18 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     void usePower(){
         dialogBuilder = new AlertDialog.Builder(this);
 
-        // hardcodedPopUpWindowInitialization(popWindow);
+        TextView temp = popWindow.findViewById(R.id.target_list);
+        temp.setText(R.string.empty);
+
+        popUpInitialize();
 
         dialogBuilder.setView(popWindow);
         dialog = dialogBuilder.create();
         dialog.show();
+    }
+
+    View returnView(int id){
+        return popWindow.findViewById(id);
     }
 
     public void displayShortToast(String message){
@@ -129,27 +119,112 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         }
     }
 
-    void hardcodedPopUpWindowInitialization(View popWindow){
-        // Hardcoding every single role into the pop up window
-        // displaying owner name
-        // overriding every button
+    void autoInitialize(ROLES role,LinearLayout card, TextView ownerText, Button button){
+        int f = -1;
 
-        // ---------------------------------------------------------------------------------------
-        // Blue WOLF
-        for (int i = 0; i < fullList.size(); i++){
-
-            if (fullList.get(i).role == ROLES.BLUE_WOLF){
-                gameList.get(gameList.indexOf(fullList.get(i))).popCard = popWindow.findViewById(R.id.blueWCard);
-            }
-
-            if (fullList.get(i).isChecked){
-                gameList.get(gameList.indexOf(fullList.get(i))).list = targetList;
-                gameList.get(gameList.indexOf(fullList.get(i))).popOwner = popWindow.findViewById(R.id.blueWOwner);
-                gameList.get(gameList.indexOf(fullList.get(i))).popOwner.setText(gameList.get(gameList.indexOf(fullList.get(i))).owner);
-                gameList.get(gameList.indexOf(fullList.get(i))).popButton = popWindow.findViewById(R.id.blueWAction);
-
-            }else gameList.get(gameList.indexOf(fullList.get(i))).popCard.removeAllViews();
+        for (int i = 0; i < gameList.size(); i++){
+            if (gameList.get(i).role == role) {
+                f = i;
+                break;}
         }
+
+        if (f != -1){
+            gameList.get(f).popCard = card;
+
+            gameList.get(f).listText = popWindow.findViewById(R.id.target_list);
+            gameList.get(f).temp = getString(R.string.empty);
+
+            gameList.get(f).popOwner = ownerText;
+            gameList.get(f).popOwner.setText(gameList.get(f).owner);
+
+            gameList.get(f).listMaxSize = targetListMaxSize;
+            gameList.get(f).list = targetList;
+            gameList.get(f).popButton = button;
+            gameList.get(f).ActionButton();
+
+        } else {
+//            popWindow.findViewById(ownerText.getId()).setVisibility(View.GONE);
+//            popWindow.findViewById(button.getId()).setVisibility(View.GONE);
+//            popWindow.findViewById(card.getId()).setVisibility(View.GONE);
+        }
+    }
+
+    void popUpInitialize(){
+        autoInitialize(ROLES.BLUE_WOLF,(LinearLayout) returnView(R.id.blueWCard),
+                (TextView) returnView(R.id.blueWOwner),
+                (Button) returnView(R.id.blueWAction));
+
+        autoInitialize(ROLES.RED_WOLF,(LinearLayout) returnView(R.id.redWCard),
+                (TextView) returnView(R.id.redWOwner),
+                (Button) returnView(R.id.redWAction));
+
+        autoInitialize(ROLES.BLACK_WOLF,(LinearLayout) returnView(R.id.blackWCard),
+                (TextView) returnView(R.id.blackWOwner),
+                (Button) returnView(R.id.blackWAction));
+
+        autoInitialize(ROLES.SERVANT,(LinearLayout) returnView(R.id.servantCard),
+                (TextView) returnView(R.id.servantOwner),
+                (Button) returnView(R.id.servantAction));
+
+        autoInitialize(ROLES.CUPID,(LinearLayout) returnView(R.id.cupidCard),
+                (TextView) returnView(R.id.cupidOwner),
+                (Button) returnView(R.id.cupidAction));
+
+        autoInitialize(ROLES.PYROMANIAC,(LinearLayout) returnView(R.id.pCard),
+                (TextView) returnView(R.id.pOwner),
+                (Button) returnView(R.id.pAction));
+
+        autoInitialize(ROLES.WILD_CHILD,(LinearLayout) returnView(R.id.wildCard),
+                (TextView) returnView(R.id.wildOwner),
+                (Button) returnView(R.id.wildAction));
+
+        autoInitialize(ROLES.GUARDIAN,(LinearLayout) returnView(R.id.guardCard),
+                (TextView) returnView(R.id.guardOwner),
+                (Button) returnView(R.id.guardAction));
+
+        autoInitialize(ROLES.WEREWOLF,(LinearLayout) returnView(R.id.wWCard),
+                (TextView) returnView(R.id.wWOwner),
+                (Button) returnView(R.id.wWAction));
+
+        autoInitialize(ROLES.FATHER_WOLF,(LinearLayout) returnView(R.id.fWCard),
+                (TextView) returnView(R.id.fWOwner),
+                (Button) returnView(R.id.fWAction));
+
+        autoInitialize(ROLES.SORCERER,(LinearLayout) returnView(R.id.sorcererCard),
+                (TextView) returnView(R.id.sorcererOwner),
+                (Button) returnView(R.id.sorcererAction));
+
+        autoInitialize(ROLES.SEER,(LinearLayout) returnView(R.id.seerCard),
+                (TextView) returnView(R.id.seerOwner),
+                (Button) returnView(R.id.seerAction));
+
+        autoInitialize(ROLES.SHEPHERD,(LinearLayout) returnView(R.id.sheepCard),
+                (TextView) returnView(R.id.sheepOwner),
+                (Button) returnView(R.id.sheepAction));
+
+        autoInitialize(ROLES.BARBER,(LinearLayout) returnView(R.id.barberCard),
+                (TextView) returnView(R.id.barberOwner),
+                (Button) returnView(R.id.barberAction));
+
+        autoInitialize(ROLES.ALIEN,(LinearLayout) returnView(R.id.aCard),
+                (TextView) returnView(R.id.aOwner),
+                (Button) returnView(R.id.aAction));
+
+        autoInitialize(ROLES.KNIGHT,(LinearLayout) returnView(R.id.knightCard),
+                (TextView) returnView(R.id.knightOwner),
+                (Button) returnView(R.id.knightAction));
+
+        autoInitialize(ROLES.CAPTAIN,(LinearLayout) returnView(R.id.cptCard),
+                (TextView) returnView(R.id.cptOwner),
+                (Button) returnView(R.id.cptAction));
+
+        autoInitialize(ROLES.VILLAGER,(LinearLayout) returnView(R.id.vCard),
+                (TextView) returnView(R.id.vOwner),
+                (Button) returnView(R.id.vAction));
+
+        autoInitialize(ROLES.BEAR,(LinearLayout) returnView(R.id.bearCard),
+                (TextView) returnView(R.id.bearOwner),
+                (Button) returnView(R.id.bearAction));
     }
 
 }
