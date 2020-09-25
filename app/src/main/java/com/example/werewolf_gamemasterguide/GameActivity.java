@@ -47,8 +47,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         gameList = (ArrayList<Role>) extras.getSerializable("gameList");
         fullList = (ArrayList<Role>) extras.getSerializable("fullList");
 
-        popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
-
         turnCount = findViewById(R.id.turn_count);
         role = findViewById(R.id.role_name);
         roleOwner = findViewById(R.id.role_owner);
@@ -76,6 +74,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     void usePower(){
         dialogBuilder = new AlertDialog.Builder(this);
+
+        popWindow = getLayoutInflater().inflate(R.layout.player_list_popup,null);
 
         TextView temp = popWindow.findViewById(R.id.target_list);
         temp.setText(R.string.empty);
