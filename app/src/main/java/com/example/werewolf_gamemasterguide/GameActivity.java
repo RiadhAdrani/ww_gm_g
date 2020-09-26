@@ -141,7 +141,10 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             gameList.get(f).list = targetList;
             gameList.get(f).popButton = button;
             gameList.get(f).ActionButton();
-
+        } else {
+            LinearLayout x = (LinearLayout) popWindow.findViewById(card.getId());
+            x.removeAllViewsInLayout();
+            x.setVisibility(View.GONE);
         }
     }
 
