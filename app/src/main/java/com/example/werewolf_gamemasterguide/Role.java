@@ -57,6 +57,7 @@ public class Role implements java.io.Serializable {
                 if (listMaxSize == list.size()) list.remove(0);;
                 {list.add(Role.this);}
 
+                temp = "";
                 for (Role role1 : list) {
                     temp += " "+ role1.owner;
                 }
