@@ -20,6 +20,9 @@
     <string name="now_playing">now playing :</string>
     <string name="power_text_placeholder">What will you do today \?</string>
     <string name="empty">empty</string>
+    <string name="hey">Hey </string>
+    <string name="wake_up">, wake up !</string>
+    <string name="pick_your_target">pick your target !</string>
 
     <string name="team_villager">VILLAGER</string>
     <string name="team_wolves">WOLVES</string>

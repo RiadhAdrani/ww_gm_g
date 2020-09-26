@@ -98,27 +98,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         toast.show();
     }
 
-    void displayCurrentRole(){
-        r++;
-        if (r > ( gameList.size() - 1) ) {
-            String turnText = ""+turn;
-            turnCount.setText(turnText);
-            role.setText("DISCUSSION");
-            roleOwner.setText("ALL PLAYERS");
-            roleInfo.setText("PLAYERS ARE INVITED TO DISCUSS WHAT HAPPENED THIS NIGHT AND ACCUSE SOMEONE EXPECTED TO BE A WOLF");
-            r = -1;
-            turn ++;
-        }
-
-        else{
-            String turnText = ""+turn;
-            turnCount.setText(turnText);
-            role.setText(gameList.get(r).name);
-            roleOwner.setText(gameList.get(r).owner);
-            roleInfo.setText(gameList.get(r).desc);
-        }
-    }
-
     void autoInitialize(ROLES role,LinearLayout card, TextView ownerText, Button button){
         int f = -1;
 
@@ -141,6 +120,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             gameList.get(f).list = targetList;
             gameList.get(f).popButton = button;
             gameList.get(f).ActionButton();
+            popUpRoleListTargetFilter(f);
+
         } else {
             LinearLayout x = (LinearLayout) popWindow.findViewById(card.getId());
             x.removeAllViewsInLayout();
@@ -224,6 +205,62 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         autoInitialize(ROLES.BEAR,(LinearLayout) returnView(R.id.bearCard),
                 (TextView) returnView(R.id.bearOwner),
                 (Button) returnView(R.id.bearAction));
+    }
+
+    void displayCurrentRole(){
+        r++;
+        if (r >= ( gameList.size()) ) {
+            String turnText = ""+turn;
+            turnCount.setText(turnText);
+            role.setText("DISCUSSION");
+            roleOwner.setText("ALL PLAYERS");
+            roleInfo.setText("PLAYERS ARE INVITED TO DISCUSS WHAT HAPPENED THIS NIGHT AND ACCUSE SOMEONE EXPECTED TO BE A WOLF");
+            r = -1;
+            turn ++;
+        }
+
+        else{
+            String turnText = ""+turn;
+            turnCount.setText(turnText);
+            role.setText(gameList.get(r).name);
+            roleOwner.setText(gameList.get(r).owner);
+            roleInfo.setText(gameList.get(r).desc);
+        }
+
+        if (r > -1) nextRoleSpecificationCheck();
+
+    }
+
+    void nextRoleSpecificationCheck(){
+
+        // Include specific rules for certain roles
+        // Keep in mind that this specification checks will be called just after switching to a role
+        // and displaying his data in the screen.
+        // Specification and rules could be added here
+        // no order is needed
+
+        // BLUE WOLF
+        if (gameList.get(r).role == ROLES.BLUE_WOLF && turn % 3 != 0){
+            displayCurrentRole();
+        }
+    }
+
+    void deleteRoleView(int f){
+        LinearLayout x = (LinearLayout) gameList.get(f).popCard;
+        x.removeAllViewsInLayout();
+        x.setVisibility(View.GONE);
+    }
+
+    void popUpRoleListTargetFilter(int f){
+        // Filter Which role could be targeted according to the current player
+        // Filters should be added here
+        // this function is executed within the autoInitialize() function of each role
+        // no order is needed
+
+        switch (gameList.get(r).role){
+            case BLUE_WOLF: if (gameList.get(f).team == TEAM.WOLVES) deleteRoleView(f); ;break;
+        }
+
     }
 
 }
