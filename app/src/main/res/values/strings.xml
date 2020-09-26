@@ -84,5 +84,6 @@
 
     <string name="blueWolf">Blue Wolf</string>
     <string name="blueWolfDesc">The nature of this wolf is uncertain for the villagers.</string>
+    <string name="blueWolfAlert">THE BLUE WOLF AWAKES, HE HAS THE POWER OF </string>
 
 </resources>

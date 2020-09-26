@@ -82,6 +82,16 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
         popUpInitialize();
 
+        final Button confirm = popWindow.findViewById(R.id.confirm_action);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmAction();
+            }
+        });
+
+        if (gameList.get(r).isBlued) displayShortToast("THIS ONE IS BLUED");
+
         dialogBuilder.setView(popWindow);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -227,9 +237,22 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             roleInfo.setText(gameList.get(r).desc);
         }
 
-        if (r > -1) nextRoleSpecificationCheck();
+        targetListMaxSize = 1;
+        targetList.clear();
 
+        if (r > -1) {
+            nextRoleSpecificationCheck();
+            blueEffect();}
     }
+
+    void deleteRoleView(int f){
+        LinearLayout x = (LinearLayout) gameList.get(f).popCard;
+        x.removeAllViewsInLayout();
+        x.setVisibility(View.GONE);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // SINGLE ROLE SPECIFICATIONS
 
     void nextRoleSpecificationCheck(){
 
@@ -245,12 +268,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         }
     }
 
-    void deleteRoleView(int f){
-        LinearLayout x = (LinearLayout) gameList.get(f).popCard;
-        x.removeAllViewsInLayout();
-        x.setVisibility(View.GONE);
-    }
-
     void popUpRoleListTargetFilter(int f){
         // Filter Which role could be targeted according to the current player
         // Filters should be added here
@@ -261,6 +278,21 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             case BLUE_WOLF: if (gameList.get(f).team == TEAM.WOLVES) deleteRoleView(f); ;break;
         }
 
+    }
+
+    void confirmAction(){
+        switch (gameList.get(r).role){
+            case BLUE_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlued = true;
+        }
+        displayCurrentRole();
+        dialog.dismiss();
+    }
+
+    void blueEffect(){
+        if (gameList.get(r).isBlued){
+            displayShortToast(getString(R.string.blueWolfAlert)+" : "+getString(gameList.get(r).name));
+            targetListMaxSize *= 2;
+        }
     }
 
 }

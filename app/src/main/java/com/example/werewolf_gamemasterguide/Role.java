@@ -38,6 +38,8 @@ public class Role implements java.io.Serializable {
     transient ArrayList<Role> list = new ArrayList<Role>();
     transient TextView listText;
 
+    boolean isBlued;
+
     public Role(ROLES role, TEAM team, String owner, int name, int desc, CheckBox checkBox, TextView nameText, TextView descText, TextView teamText) {
         this.role = role;
         this.team = team;
