@@ -21,8 +21,7 @@ public class Role implements java.io.Serializable {
     int desc;
 
     boolean isChecked = false;
-    boolean isAlive = true;
-    boolean isKilled = false;
+
 
     transient CheckBox checkBox;
     transient TextView nameText;
@@ -38,7 +37,27 @@ public class Role implements java.io.Serializable {
     transient ArrayList<Role> list = new ArrayList<Role>();
     transient TextView listText;
 
-    boolean isBlued;
+    boolean isAlive = true,
+            isBlued = false,
+            isServed  = false,
+            isGuarded = false,
+            isBlocked = false,
+            isHealed = false,
+            isKilled = false,
+            isMuted = false,
+            isOnFire = false,
+            isChilded = false,
+            isInfected = false,
+            isSeen = false,
+            isSheep = false,
+            isKnighted = false,
+            isCaptain = false,
+            isTalkingFirst = false,
+            isNearBear = false,
+            isLover = false,
+            isSorcererEd = false,
+            isHavingACut = false;
+
 
     public Role(ROLES role, TEAM team, String owner, int name, int desc, CheckBox checkBox, TextView nameText, TextView descText, TextView teamText) {
         this.role = role;
@@ -50,6 +69,8 @@ public class Role implements java.io.Serializable {
         this.nameText = nameText;
         this.descText = descText;
         this.teamText = teamText;
+
+        if (this.role == ROLES.CAPTAIN) isCaptain = true;
     }
 
     public void ActionButton(){

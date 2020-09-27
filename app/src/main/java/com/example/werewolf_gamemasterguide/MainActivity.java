@@ -136,15 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         completeList.add(redWolf);
 
         // ------------------------------------------------------------------------------------------------------
-        // BLACK WOLF
-        blackWolf = new Role(ROLES.BLACK_WOLF,TEAM.WOLVES,"empty",R.string.blackWolf,R.string.blackWolfDesc,
-                (CheckBox) findViewById(R.id.black_wolf_checkBox),
-                (TextView) findViewById(R.id.black_wolf_name),
-                (TextView) findViewById(R.id.black_wolf_desc),
-                (TextView) findViewById(R.id.black_wolf_team));
-        completeList.add(blackWolf);
-
-        // ------------------------------------------------------------------------------------------------------
         // SERVANT
         servant = new Role(ROLES.SERVANT,TEAM.VILLAGE,"empty",R.string.servant,R.string.servantDesc,
                 (CheckBox) findViewById(R.id.servant_checkBox),
@@ -188,6 +179,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (TextView) findViewById(R.id.guardian_desc),
                 (TextView) findViewById(R.id.guardian_team));
         completeList.add(guardian);
+
+        // ------------------------------------------------------------------------------------------------------
+        // BLACK WOLF
+        blackWolf = new Role(ROLES.BLACK_WOLF,TEAM.WOLVES,"empty",R.string.blackWolf,R.string.blackWolfDesc,
+                (CheckBox) findViewById(R.id.black_wolf_checkBox),
+                (TextView) findViewById(R.id.black_wolf_name),
+                (TextView) findViewById(R.id.black_wolf_desc),
+                (TextView) findViewById(R.id.black_wolf_team));
+        completeList.add(blackWolf);
+
 
         // ------------------------------------------------------------------------------------------------------
         // WEREWOLF

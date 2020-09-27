@@ -263,9 +263,92 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         // no order is needed
 
         // BLUE WOLF
+        // Can use his power once every three turns
         if (gameList.get(r).role == ROLES.BLUE_WOLF && turn % 3 != 0){
             displayCurrentRole();
         }
+
+        // RED WOLF
+        // Use his power to block an enemy
+
+        // SERVANT
+        // In the first turn of the game, the servant choose a target to inherit his power after
+        // his death
+        if (gameList.get(r).role == ROLES.SERVANT && turn != 1){
+            displayCurrentRole();
+        }
+
+        // CUPID
+        // In the first turn of the game, he bind two with the power of love
+        // if one dies, the other dies too
+        if (gameList.get(r).role == ROLES.CUPID && turn != 1){
+            displayCurrentRole();
+        }
+
+        //PYROMANIAC
+        // In the first turn of the game, the pyromaniac choose a target,
+        // if he is attacked, he do not die,
+        // instead, the first wolf on his (the target) right side dies
+        // the pyromaniac become a simple villager
+        if (gameList.get(r).role == ROLES.PYROMANIAC && turn != 1){
+            displayCurrentRole();
+        }
+
+        // WILD CHILD
+        // In the first turn of the game, the wild child choose a target,
+        // if dead, he join the wolf pack
+        if (gameList.get(r).role == ROLES.WILD_CHILD && turn != 1){
+            displayCurrentRole();
+        }
+
+        // GUARDIAN
+        // Every turn, he protect someone from the wolves
+        // Can't protect the same person twice in a row
+
+        // FATHER OF WOLF
+        // Starting from the second turn, the father of wolf can infect someone
+        // He can use this power once
+        if (gameList.get(r).role == ROLES.FATHER_WOLF && turn == 1){
+            displayCurrentRole();
+        }
+
+        // SORCERER
+        // Has two potions, to revive or to Kill
+
+        // SEER
+        // Has the ability to see the true roles
+
+        // SHEPHERD
+        // send his two sheep to two players.
+        // if a sheep is sent to a wolf, he dies
+
+        // BARBER
+        // Has an active power of killing a player
+        // if the target is a wolf, he is dead and the barber became a simple villager
+        // if the target is not a wolf, both the target and the barber die.
+
+        // ALIEN
+        // His objective is to guess the role of each player to win the game
+        // if he guess wrong, he dies
+
+        // KNIGHT
+        // If he is being targeted by someone, he can use another player as a human shield,
+        // the chosen player obviously dies and the knight become a simple villager
+
+        // CAPTAIN
+        // Chooses who is going to start the discussion after each turn
+        // Can decide which player will die if the votes for some players are even.
+
+        // SIMPLE VILLAGER
+        // No power
+        if (gameList.get(r).role == ROLES.VILLAGER){
+            displayCurrentRole();
+        }
+
+        // BEAR
+        // Make a sound if there is a wolf (not an infected) by his side
+        // Make a sound if he is infected
+
     }
 
     void popUpRoleListTargetFilter(int f){
@@ -275,14 +358,55 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         // no order is needed
 
         switch (gameList.get(r).role){
-            case BLUE_WOLF: if (gameList.get(f).team == TEAM.WOLVES) deleteRoleView(f); ;break;
+            case BLUE_WOLF:
+            case RED_WOLF: if (gameList.get(f).team == TEAM.WOLVES) deleteRoleView(f); break;
+            case SERVANT: if (gameList.get(f).role == ROLES.SERVANT) deleteRoleView(f); break;
+            // case CUPID: break;
+            // case PYROMANIAC: break;
+            case WILD_CHILD: if (gameList.get(f).role == ROLES.WILD_CHILD) deleteRoleView(f); break;
+            case GUARDIAN: if (gameList.get(f).isGuarded) deleteRoleView(f);break;
+            // case BLACK_WOLF: break;
+            // case WEREWOLF: break;
+            case FATHER_WOLF: if (!gameList.get(f).isKilled) deleteRoleView(f);break;
+            // case SORCERER: break;
+            // case SEER:break;
+            // case SHEPHERD: break;
+            case BARBER: if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f);break;
+            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN) deleteRoleView(f);break;
+            case KNIGHT: if (gameList.get(f).role == ROLES.KNIGHT) deleteRoleView(f);break;
+            // case CAPTAIN: break;
+            // case VILLAGER: break;
+            // case BEAR: break;
+
         }
 
     }
 
     void confirmAction(){
         switch (gameList.get(r).role){
-            case BLUE_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlued = true;
+            case BLUE_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlued = true; break;
+            case RED_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlocked = true; break;
+            case BLACK_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isMuted = true; break;
+            case SERVANT: gameList.get(gameList.indexOf(targetList.get(0))).isServed = true; break;
+            case CUPID: gameList.get(gameList.indexOf(targetList.get(0))).isLover = true;
+                        gameList.get(gameList.indexOf(targetList.get(1))).isLover = true; break;
+            case PYROMANIAC: gameList.get(gameList.indexOf(targetList.get(0))).isOnFire = true; break;
+            case WILD_CHILD: gameList.get(gameList.indexOf(targetList.get(0))).isChilded = true;break;
+            case GUARDIAN: gameList.get(gameList.indexOf(targetList.get(0))).isGuarded = true; break;
+            case WEREWOLF: gameList.get(gameList.indexOf(targetList.get(0))).isKilled = true; break;
+            case FATHER_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isInfected = true; break;
+            case SORCERER: sorcererEffect(); break;
+            case SEER: gameList.get(gameList.indexOf(targetList.get(0))).isSeen = true; break;
+            case SHEPHERD: gameList.get(gameList.indexOf(targetList.get(0))).isSheep = true;
+                           gameList.get(gameList.indexOf(targetList.get(1))).isSheep = true; break;
+            case BARBER: gameList.get(gameList.indexOf(targetList.get(0))).isHavingACut= true;
+            case ALIEN: /*alien guess*/ break;
+            case KNIGHT: gameList.get(gameList.indexOf(targetList.get(0))).isKnighted = true;
+                         gameList.get(gameList.indexOf(targetList.get(r))).isKilled = false; break;
+            case CAPTAIN: gameList.get(gameList.indexOf(targetList.get(0))).isTalkingFirst = true; break;
+            case BEAR: gameList.get(gameList.indexOf(targetList.get(0))).isNearBear = true;
+                       gameList.get(gameList.indexOf(targetList.get(1))).isNearBear = true; break;
+
         }
         displayCurrentRole();
         dialog.dismiss();
@@ -293,6 +417,17 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             displayShortToast(getString(R.string.blueWolfAlert)+" : "+getString(gameList.get(r).name));
             targetListMaxSize *= 2;
         }
+    }
+
+    void sorcererEffect(){
+        if (targetList.size() != 0)
+        for (Role role1 : targetList) {
+            if (role1.isKilled) role1.isHealed = true;
+            else role1.isSorcererEd = true;
+        }
+    }
+
+    void preFinalResolveStatus(){
     }
 
 }
