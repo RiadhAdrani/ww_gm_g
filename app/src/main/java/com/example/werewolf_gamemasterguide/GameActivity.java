@@ -3,6 +3,7 @@ package com.example.werewolf_gamemasterguide;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -66,7 +67,10 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             public void onClick(View view) {
                 if (r == -1){
                     displayShortToast("CLICK NEXT TO START A NEW TURN !");
-                } else
+                } else if (gameList.get(r).isBlocked) {
+                    displayShortToast("!!! BLOCKED !!!");
+                }
+                else
                 usePower();
             }
         });
@@ -226,6 +230,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             roleOwner.setText("ALL PLAYERS");
             roleInfo.setText("PLAYERS ARE INVITED TO DISCUSS WHAT HAPPENED THIS NIGHT AND ACCUSE SOMEONE EXPECTED TO BE A WOLF");
             r = -1;
+            debugging();
             turn ++;
         }
 
@@ -250,6 +255,38 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         x.removeAllViewsInLayout();
         x.setVisibility(View.GONE);
     }
+
+    int findRole(ROLES role){
+        for (Role x : gameList) {
+            if (x.role == role) return gameList.indexOf(x);
+        }
+        return -1;
+    }
+
+    void debugging(){
+        for (Role x : gameList) {
+            if (x.isBlued) Log.d("STATUS_EFFECT", ""+x.name+" isBlued");
+            if (x.isServed) Log.d("STATUS_EFFECT", ""+x.name+" isServed");
+            if (x.isGuarded) Log.d("STATUS_EFFECT", ""+x.name+" isGuarded");
+            if (x.isBlocked) Log.d("STATUS_EFFECT", ""+x.name+" isBlocked");
+            if (x.isHealed) Log.d("STATUS_EFFECT", ""+x.name+" isHealed");
+            if (x.isKilled) Log.d("STATUS_EFFECT", ""+x.name+" isKilled");
+            if (x.isMuted) Log.d("STATUS_EFFECT", ""+x.name+" isMuted");
+            if (x.isOnFire) Log.d("STATUS_EFFECT", ""+x.name+" isOnFire");
+            if (x.isChilded) Log.d("STATUS_EFFECT", ""+x.name+" isChilded");
+            if (x.isInfected) Log.d("STATUS_EFFECT", ""+x.name+" isInfected");
+            if (x.isSeen) Log.d("STATUS_EFFECT", ""+x.name+" isSeen");
+            if (x.isSheep) Log.d("STATUS_EFFECT", ""+x.name+" isSheep");
+            if (x.isKnighted) Log.d("STATUS_EFFECT", ""+x.name+" isKnighted");
+            if (x.isCaptain) Log.d("STATUS_EFFECT", ""+x.name+" isCaptain");
+            if (x.isTalkingFirst) Log.d("STATUS_EFFECT", ""+x.name+" isTalkingFirst");
+            if (x.isNearBear) Log.d("STATUS_EFFECT", ""+x.name+" isNearBear");
+            if (x.isLover) Log.d("STATUS_EFFECT", ""+x.name+" isLover");
+            if (x.isSorcererEd) Log.d("STATUS_EFFECT", ""+x.name+" isSorcererEd");
+            if (x.isHavingACut) Log.d("STATUS_EFFECT", ""+x.name+" isHavingACut");
+        }
+    }
+
 
     // --------------------------------------------------------------------------------------------
     // SINGLE ROLE SPECIFICATIONS
@@ -364,49 +401,43 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             // case CUPID: break;
             // case PYROMANIAC: break;
             case WILD_CHILD: if (gameList.get(f).role == ROLES.WILD_CHILD) deleteRoleView(f); break;
-            case GUARDIAN: if (gameList.get(f).isGuarded) deleteRoleView(f);break;
+            case GUARDIAN: if (gameList.get(f).isPreviouslyGuarded) deleteRoleView(f); break;
             // case BLACK_WOLF: break;
             // case WEREWOLF: break;
-            case FATHER_WOLF: if (!gameList.get(f).isKilled) deleteRoleView(f);break;
+            case FATHER_WOLF: if (!gameList.get(f).isKilled) deleteRoleView(f); break;
             // case SORCERER: break;
             // case SEER:break;
             // case SHEPHERD: break;
-            case BARBER: if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f);break;
-            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN) deleteRoleView(f);break;
-            case KNIGHT: if (gameList.get(f).role == ROLES.KNIGHT) deleteRoleView(f);break;
+            case BARBER: if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f); break;
+            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN) deleteRoleView(f); break;
+            case KNIGHT: if (gameList.get(f).role == ROLES.KNIGHT) deleteRoleView(f); break;
             // case CAPTAIN: break;
             // case VILLAGER: break;
             // case BEAR: break;
-
         }
 
     }
 
     void confirmAction(){
         switch (gameList.get(r).role){
-            case BLUE_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlued = true; break;
-            case RED_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isBlocked = true; break;
-            case BLACK_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isMuted = true; break;
-            case SERVANT: gameList.get(gameList.indexOf(targetList.get(0))).isServed = true; break;
-            case CUPID: gameList.get(gameList.indexOf(targetList.get(0))).isLover = true;
-                        gameList.get(gameList.indexOf(targetList.get(1))).isLover = true; break;
-            case PYROMANIAC: gameList.get(gameList.indexOf(targetList.get(0))).isOnFire = true; break;
-            case WILD_CHILD: gameList.get(gameList.indexOf(targetList.get(0))).isChilded = true;break;
-            case GUARDIAN: gameList.get(gameList.indexOf(targetList.get(0))).isGuarded = true; break;
-            case WEREWOLF: gameList.get(gameList.indexOf(targetList.get(0))).isKilled = true; break;
-            case FATHER_WOLF: gameList.get(gameList.indexOf(targetList.get(0))).isInfected = true; break;
-            case SORCERER: sorcererEffect(); break;
-            case SEER: gameList.get(gameList.indexOf(targetList.get(0))).isSeen = true; break;
-            case SHEPHERD: gameList.get(gameList.indexOf(targetList.get(0))).isSheep = true;
-                           gameList.get(gameList.indexOf(targetList.get(1))).isSheep = true; break;
-            case BARBER: gameList.get(gameList.indexOf(targetList.get(0))).isHavingACut= true;
+            case BLUE_WOLF: bluePower(); break;
+            case RED_WOLF: redPower(); break;
+            case BLACK_WOLF: blackPower(); break;
+            case SERVANT: servantPower(); break;
+            case CUPID: cupidPower(); break;
+            case PYROMANIAC: pyromaniacPower(); break;
+            case WILD_CHILD: wildPower(); break;
+            case GUARDIAN: guardianPower(); break;
+            case WEREWOLF: wolfPackPower(); break;
+            case FATHER_WOLF: fatherPower(); break;
+            case SORCERER: sorcererPower(); break;
+            case SEER: seerPower(); break;
+            case SHEPHERD: sheepPower();break;
+            case BARBER: barberKilledPower(); break;
             case ALIEN: /*alien guess*/ break;
-            case KNIGHT: gameList.get(gameList.indexOf(targetList.get(0))).isKnighted = true;
-                         gameList.get(gameList.indexOf(targetList.get(r))).isKilled = false; break;
-            case CAPTAIN: gameList.get(gameList.indexOf(targetList.get(0))).isTalkingFirst = true; break;
-            case BEAR: gameList.get(gameList.indexOf(targetList.get(0))).isNearBear = true;
-                       gameList.get(gameList.indexOf(targetList.get(1))).isNearBear = true; break;
-
+            case KNIGHT: knightKilledEffect();
+            case CAPTAIN: captainPower(); break;
+            case BEAR: bearPower(); break;
         }
         displayCurrentRole();
         dialog.dismiss();
@@ -419,15 +450,140 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         }
     }
 
-    void sorcererEffect(){
-        if (targetList.size() != 0)
+    void bluePower(){
+        if (!targetList.isEmpty()) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isBlued = true;
+            }
+        }
+    }
+
+    void redPower(){
+        if (!targetList.isEmpty()) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isBlocked = true;
+            }
+        }
+    }
+
+    void blackPower(){
+        if (!targetList.isEmpty()) {
+            for (Role x : targetList) {
+                if (!gameList.get(gameList.indexOf(x)).isGuarded) gameList.get(gameList.indexOf(x)).isMuted = true;
+            }
+        }
+    }
+
+    void servantPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isServed = true;
+            }
+        }
+    }
+
+    void cupidPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isLover = true;
+            }
+        }
+    }
+
+    void pyromaniacPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isOnFire = true;
+            }
+        }
+    }
+
+    void wildPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isChilded = true;
+            }
+        }
+    }
+
+    void guardianPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isGuarded = true;
+            }
+        }
+    }
+
+    void wolfPackPower(){
+        if (!targetList.isEmpty()) {
+            for (Role x : targetList) {
+                if (!gameList.get(gameList.indexOf(x)).isGuarded) gameList.get(gameList.indexOf(x)).isKilled = true;
+            }
+        }
+    }
+
+    void fatherPower(){
+        if (!targetList.isEmpty()) {
+            for (Role x : targetList) {
+                if (!gameList.get(gameList.indexOf(x)).isGuarded) gameList.get(gameList.indexOf(x)).isInfected = true;
+            }
+        }
+    }
+
+    void sorcererPower(){
+        if (targetList.size() != 0 && !gameList.get(r).isBlocked)
         for (Role role1 : targetList) {
-            if (role1.isKilled) role1.isHealed = true;
+            if (role1.isKilled) {role1.isHealed = true; role1.isKilled = false;}
             else role1.isSorcererEd = true;
         }
     }
 
-    void preFinalResolveStatus(){
+    void seerPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isSeen = true;
+            }
+        }
     }
 
+    void sheepPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isSheep = true;
+            }
+        }
+    }
+
+    void barberKilledPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                if (!gameList.get(r).isBlocked) gameList.get(gameList.indexOf(x)).isHavingACut = true;
+            }
+        }
+    }
+
+    void knightKilledEffect(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isKnighted = true;
+            }
+
+        }
+    }
+
+    void captainPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isTalkingFirst = true;
+            }
+        }
+    }
+
+    void bearPower(){
+        if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
+            for (Role x : targetList) {
+                gameList.get(gameList.indexOf(x)).isNearBear = true;
+            }
+        }
+    }
 }

@@ -41,6 +41,7 @@ public class Role implements java.io.Serializable {
             isBlued = false,
             isServed  = false,
             isGuarded = false,
+            isPreviouslyGuarded = false,
             isBlocked = false,
             isHealed = false,
             isKilled = false,
@@ -57,7 +58,6 @@ public class Role implements java.io.Serializable {
             isLover = false,
             isSorcererEd = false,
             isHavingACut = false;
-
 
     public Role(ROLES role, TEAM team, String owner, int name, int desc, CheckBox checkBox, TextView nameText, TextView descText, TextView teamText) {
         this.role = role;
