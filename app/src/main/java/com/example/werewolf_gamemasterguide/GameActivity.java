@@ -1,20 +1,14 @@
 package com.example.werewolf_gamemasterguide;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,6 +29,13 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     AlertDialog.Builder dialogBuilder;
     AlertDialog dialog;
+
+    int fatherPL = 1;
+    int barberPL = 1;
+    int knightPL = 1;
+    int sorcererHeal = 1;
+    int sorcererKill = 1;
+    int sheepL = 2;
 
     View popWindow;
 
@@ -223,6 +224,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     void displayCurrentRole(){
         r++;
+        targetListMaxSize = 0;
+        targetList.clear();
         if (r >= ( gameList.size()) ) {
             String turnText = ""+turn;
             turnCount.setText(turnText);
@@ -240,14 +243,12 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             role.setText(gameList.get(r).name);
             roleOwner.setText(gameList.get(r).owner);
             roleInfo.setText(gameList.get(r).desc);
+            targetSize();
         }
 
-        targetListMaxSize = 1;
-        targetList.clear();
-
-        if (r > -1) {
+        if (r != -1) {
             nextRoleSpecificationCheck();
-            blueEffect();}
+            }
     }
 
     void deleteRoleView(int f){
@@ -265,25 +266,25 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     void debugging(){
         for (Role x : gameList) {
-            if (x.isBlued) Log.d("STATUS_EFFECT", ""+x.name+" isBlued");
-            if (x.isServed) Log.d("STATUS_EFFECT", ""+x.name+" isServed");
-            if (x.isGuarded) Log.d("STATUS_EFFECT", ""+x.name+" isGuarded");
-            if (x.isBlocked) Log.d("STATUS_EFFECT", ""+x.name+" isBlocked");
-            if (x.isHealed) Log.d("STATUS_EFFECT", ""+x.name+" isHealed");
-            if (x.isKilled) Log.d("STATUS_EFFECT", ""+x.name+" isKilled");
-            if (x.isMuted) Log.d("STATUS_EFFECT", ""+x.name+" isMuted");
-            if (x.isOnFire) Log.d("STATUS_EFFECT", ""+x.name+" isOnFire");
-            if (x.isChilded) Log.d("STATUS_EFFECT", ""+x.name+" isChilded");
-            if (x.isInfected) Log.d("STATUS_EFFECT", ""+x.name+" isInfected");
-            if (x.isSeen) Log.d("STATUS_EFFECT", ""+x.name+" isSeen");
-            if (x.isSheep) Log.d("STATUS_EFFECT", ""+x.name+" isSheep");
-            if (x.isKnighted) Log.d("STATUS_EFFECT", ""+x.name+" isKnighted");
-            if (x.isCaptain) Log.d("STATUS_EFFECT", ""+x.name+" isCaptain");
-            if (x.isTalkingFirst) Log.d("STATUS_EFFECT", ""+x.name+" isTalkingFirst");
-            if (x.isNearBear) Log.d("STATUS_EFFECT", ""+x.name+" isNearBear");
-            if (x.isLover) Log.d("STATUS_EFFECT", ""+x.name+" isLover");
-            if (x.isSorcererEd) Log.d("STATUS_EFFECT", ""+x.name+" isSorcererEd");
-            if (x.isHavingACut) Log.d("STATUS_EFFECT", ""+x.name+" isHavingACut");
+            if (x.isBlued) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isBlued");
+            if (x.isServed) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isServed");
+            if (x.isGuarded) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isGuarded");
+            if (x.isBlocked) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isBlocked");
+            if (x.isHealed) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isHealed");
+            if (x.isKilled) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isKilled");
+            if (x.isMuted) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isMuted");
+            if (x.isOnFire) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isOnFire");
+            if (x.isChilded) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isChilded");
+            if (x.isInfected) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isInfected");
+            if (x.isSeen) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isSeen");
+            if (x.isSheep) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isSheep");
+            if (x.isKnighted) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isKnighted");
+            if (x.isCaptain) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isCaptain");
+            if (x.isTalkingFirst) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isTalkingFirst");
+            if (x.isNearBear) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isNearBear");
+            if (x.isLover) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isLover");
+            if (x.isSorcererEd) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isSorcererEd");
+            if (x.isHavingACut) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isHavingACut");
         }
     }
 
@@ -418,6 +419,42 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     }
 
+    void targetSize(){
+        // Filter Which role could be targeted according to the current player
+        // Filters should be added here
+        // this function is executed within the autoInitialize() function of each role
+        // no order is needed
+
+        switch (gameList.get(r).role){
+            case BLUE_WOLF:
+            case VILLAGER:
+            case RED_WOLF:
+            case SERVANT:
+            case PYROMANIAC:
+            case WILD_CHILD:
+            case GUARDIAN:
+            case BLACK_WOLF:
+            case WEREWOLF:
+            case SEER:
+            case CAPTAIN: targetListMaxSize = 1; if (gameList.get(r).isBlued) targetListMaxSize ++ ; break;
+
+            case KNIGHT: targetListMaxSize = knightPL; if (gameList.get(r).isBlued) targetListMaxSize ++; break;
+
+            case BARBER: targetListMaxSize = barberPL; if (gameList.get(r).isBlued) targetListMaxSize ++; break;
+
+            case FATHER_WOLF: targetListMaxSize = fatherPL; break;
+
+            case CUPID:
+            case BEAR: targetListMaxSize = 2; if (gameList.get(r).isBlued) targetListMaxSize += 2; break;
+
+            case SORCERER: targetListMaxSize = sorcererHeal + sorcererKill; if (gameList.get(r).isBlued) targetListMaxSize += 2 ; break;
+            case SHEPHERD: targetListMaxSize = sheepL ; if (gameList.get(r).isBlued) targetListMaxSize += 2; break;
+
+            case ALIEN: targetListMaxSize = gameList.size();
+        }
+
+    }
+
     void confirmAction(){
         switch (gameList.get(r).role){
             case BLUE_WOLF: bluePower(); break;
@@ -490,6 +527,37 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         }
     }
 
+    int findOtherLover(int currentLover){
+        for (Role x : gameList) {
+            if (gameList.indexOf(x) != currentLover && x.isLover) return gameList.indexOf(x);
+        }
+        return -1;
+    }
+
+    void lovePrice(){
+        if (gameList.get(r).isLover){
+            if (gameList.get(r).isKilled) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isSorcererEd) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isKnighted) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isHavingACut) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+        }
+    }
+
     void pyromaniacPower(){
         if (!targetList.isEmpty() && !gameList.get(r).isBlocked) {
             for (Role x : targetList) {
@@ -526,15 +594,23 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         if (!targetList.isEmpty()) {
             for (Role x : targetList) {
                 if (!gameList.get(gameList.indexOf(x)).isGuarded) gameList.get(gameList.indexOf(x)).isInfected = true;
+                fatherPL = 0;
             }
         }
     }
 
     void sorcererPower(){
-        if (targetList.size() != 0 && !gameList.get(r).isBlocked)
-        for (Role role1 : targetList) {
-            if (role1.isKilled) {role1.isHealed = true; role1.isKilled = false;}
-            else role1.isSorcererEd = true;
+        if (targetList.size() != 0 && !gameList.get(r).isBlocked) {
+            for (Role role1 : targetList) {
+                if (!role1.isKilled) {
+                    role1.isSorcererEd = true;
+                    sorcererKill = 0;
+                } else {
+                    role1.isHealed = true;
+                    role1.isKilled = false;
+                    sorcererHeal = 0;
+                }
+            }
         }
     }
 
@@ -567,7 +643,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             for (Role x : targetList) {
                 gameList.get(gameList.indexOf(x)).isKnighted = true;
             }
-
         }
     }
 
@@ -586,4 +661,5 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             }
         }
     }
+
 }
