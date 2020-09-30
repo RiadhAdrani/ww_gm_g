@@ -68,8 +68,12 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             public void onClick(View view) {
                 if (r == -1){
                     displayShortToast("CLICK NEXT TO START A NEW TURN !");
-                } else if (gameList.get(r).isBlocked) {
+                }
+                else if (gameList.get(r).isBlocked) {
                     displayShortToast("!!! BLOCKED !!!");
+                }
+                else if (targetListMaxSize == 0){
+                    displayShortToast("!!! NO ABILITY !!!");
                 }
                 else
                 usePower();
@@ -226,7 +230,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         r++;
         targetListMaxSize = 0;
         targetList.clear();
-        if (r >= ( gameList.size()) ) {
+        if (r >= ( gameList.size())) {
+            autoResolve();
             String turnText = ""+turn;
             turnCount.setText(turnText);
             role.setText("DISCUSSION");
@@ -266,9 +271,10 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     void debugging(){
         for (Role x : gameList) {
+            Log.d("STATUS_EFFECT", "TURN No : "+turn+ " -----------------------------");
             if (x.isBlued) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isBlued");
             if (x.isServed) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isServed");
-            if (x.isGuarded) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isGuarded");
+            if (x.isPreviouslyGuarded) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isGuarded");
             if (x.isBlocked) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isBlocked");
             if (x.isHealed) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isHealed");
             if (x.isKilled) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isKilled");
@@ -285,9 +291,16 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             if (x.isLover) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isLover");
             if (x.isSorcererEd) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isSorcererEd");
             if (x.isHavingACut) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isHavingACut");
+            if (!x.isAlive) Log.d("STATUS_EFFECT", ""+getString(x.name)+" Died");
         }
     }
 
+    void autoResolve(){
+        for (Role x : gameList) {
+            lovePrice(gameList.indexOf(x));
+            if (x.isKilled || x.isHavingACut || x.isKnighted || x.isSorcererEd) x.isAlive = false;
+        }
+    }
 
     // --------------------------------------------------------------------------------------------
     // SINGLE ROLE SPECIFICATIONS
@@ -364,14 +377,23 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         // Has an active power of killing a player
         // if the target is a wolf, he is dead and the barber became a simple villager
         // if the target is not a wolf, both the target and the barber die.
+        if (gameList.get(r).role == ROLES.BARBER && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isKnighted) {
+            displayCurrentRole();
+        }
 
         // ALIEN
         // His objective is to guess the role of each player to win the game
         // if he guess wrong, he dies
+        if (gameList.get(r).role == ROLES.ALIEN && turn != 1){
+            displayCurrentRole();
+        }
 
         // KNIGHT
         // If he is being targeted by someone, he can use another player as a human shield,
         // the chosen player obviously dies and the knight become a simple villager
+        if (gameList.get(r).role == ROLES.KNIGHT && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isHavingACut) {
+            displayCurrentRole();
+        }
 
         // CAPTAIN
         // Chooses who is going to start the discussion after each turn
@@ -410,7 +432,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             // case SEER:break;
             // case SHEPHERD: break;
             case BARBER: if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f); break;
-            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN) deleteRoleView(f); break;
+            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN && !gameList.get(f).isBlued) deleteRoleView(f); break;
             case KNIGHT: if (gameList.get(f).role == ROLES.KNIGHT) deleteRoleView(f); break;
             // case CAPTAIN: break;
             // case VILLAGER: break;
@@ -480,6 +502,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         dialog.dismiss();
     }
 
+    // --------------------------------------------------------------------------------------------
+
     void blueEffect(){
         if (gameList.get(r).isBlued){
             displayShortToast(getString(R.string.blueWolfAlert)+" : "+getString(gameList.get(r).name));
@@ -534,7 +558,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         return -1;
     }
 
-    void lovePrice(){
+    void lovePrice(int r){
         if (gameList.get(r).isLover){
             if (gameList.get(r).isKilled) {
                 gameList.get(findOtherLover(r)).isKilled = true;
@@ -593,8 +617,10 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     void fatherPower(){
         if (!targetList.isEmpty()) {
             for (Role x : targetList) {
-                if (!gameList.get(gameList.indexOf(x)).isGuarded) gameList.get(gameList.indexOf(x)).isInfected = true;
-                fatherPL = 0;
+                if (!gameList.get(gameList.indexOf(x)).isGuarded) {
+                    gameList.get(gameList.indexOf(x)).isInfected = true;
+                    gameList.get(gameList.indexOf(x)).isKilled = false;
+                    fatherPL = 0;}
             }
         }
     }
@@ -603,12 +629,16 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
         if (targetList.size() != 0 && !gameList.get(r).isBlocked) {
             for (Role role1 : targetList) {
                 if (!role1.isKilled) {
-                    role1.isSorcererEd = true;
-                    sorcererKill = 0;
-                } else {
-                    role1.isHealed = true;
-                    role1.isKilled = false;
-                    sorcererHeal = 0;
+                    if (sorcererKill == 1){
+                        role1.isSorcererEd = true;
+                        sorcererKill = 0;
+                    }
+                } else{
+                    if (sorcererHeal == 1){
+                        role1.isHealed = true;
+                        role1.isKilled = false;
+                        sorcererHeal = 0;
+                    }
                 }
             }
         }
