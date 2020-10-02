@@ -30,60 +30,82 @@
 
     <string name="guardian">Guardian</string>
     <string name="guardianDesc">Protector of the village.</string>
+    <string name="guardianMsg">Who will you protect today ?</string>
 
     <string name="wolf">Werewolf</string>
     <string name="wolfDesc">Basically a werewolf.</string>
+    <string name="wolfMsg">Who will you kill today ?</string>
 
     <string name="fatherWolf">Father Infect</string>
     <string name="fatherWolfDesc">An old werewolf with the ability to infect someone.</string>
+    <string name="fatherMsg">Do you want to infect or kill your target ?</string>
 
     <string name="sorcerer">Sorcerer</string>
     <string name="sorcererDesc">A sorcerer with 2 potions : Death and Revival.</string>
+    <string name="sorcererMsg"> Died, do you want to revive? Do you wish to kill someone?</string>
 
     <string name="seer">Seer</string>
     <string name="seerDesc">Knows the unknown </string>
+    <string name="seerMsg">Which person do you want his role revealed?</string>
 
     <string name="barber">Barber</string>
     <string name="barberDesc">You don\'t want to kill this specific \"Barber\".</string>
+    <string name="barberKilledMsg">You become a hunter now, which person you want to take?</string>
+    <string name="barberMsg">Name your target ! If he is not a wolf, you will die!</string>
 
     <string name="alien">Alien</string>
     <string name="alienDesc">Pretending to be a human being</string>
+    <string name="alienMsg">How many roles have you guessed today ?</string>
 
     <string name="captain">Captain</string>
     <string name="captainDesc">A captain with no apparent power.</string>
+    <string name="captainMsg">Who will start talking first ?</string>
+    <string name="captainDeadMsg">Choose the new captain !</string>
 
     <string name="simpleVillager">Simple Villager</string>
     <string name="simpleVillagerDesc">This simple villager has no special power, or doesn\'t he?</string>
+    <string name="simpleVillagerMsg">Nothing to do …</string>
 
     <string name="servant">Servant</string>
     <string name="servantDesc">Will you serve the village or rule in the wolf pack\? Or perhaps… </string>
+    <string name="servantMsg">Choose a player to inherit his power after his death, unless you die …</string>
 
     <string name="knight">Knight</string>
     <string name="knightDesc">What will happens when a soldier can\'t recognize his friends or foes\? </string>
+    <string name="knightPeaceMsg">Nothing this night…</string>
+    <string name="knightKillMsg">You have been targeted, choose someone to be your shield.</string>
 
     <string name="blackWolf">Black Wolf</string>
     <string name="blackWolfDesc">Enemies are muted with his presence.</string>
+    <string name="blackWolfMsg">Choose someone to mute during the discussion.</string>
 
     <string name="bear">Bear</string>
     <string name="bearDesc">This animal makes a sound near the un-friendlies.</string>
+    <string name="bearPower">Choose the 2 players sitting near the bear</string>
 
     <string name="cupid">Cupid</string>
     <string name="cupidDesc">Which two will be bound together by the power of \"LOVE\"\?</string>
+    <string name="cupidMsg">Choose the two lovers …</string>
 
     <string name="wildChild">Wild Child</string>
     <string name="wildChildDesc">Seems to be a totally normal and friendly child, or perhaps…</string>
+    <string name="wildChildMsg">Choose your target …</string>
 
     <string name="redWolf">Red Wolf</string>
     <string name="redWolfDesc">Render his enemies powerless.</string>
+    <string name="redWolfMsg">Your target will loose his power this night!</string>
 
     <string name="shepherd">Shepherd</string>
     <string name="shepherdDesc">Sacrifice his two sheep to unveil the wolves.</string>
+    <string name="shepherdMsg">Send your sheep…</string>
 
     <string name="pyromaniac">Pyromaniac</string>
     <string name="pyromaniacDesc">The wolves fear the flames.</string>
+    <string name="pyromaniacMsg">It is time to protect someone with fire …</string>
 
     <string name="blueWolf">Blue Wolf</string>
     <string name="blueWolfDesc">The nature of this wolf is uncertain for the villagers.</string>
     <string name="blueWolfAlert">THE BLUE WOLF AWAKES, HE HAS THE POWER OF </string>
+    <string name="blueWolfMsg">Choose a player to gain his power just for tonight …</string>
 
 </resources>

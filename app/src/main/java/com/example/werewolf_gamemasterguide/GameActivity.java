@@ -91,6 +91,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
         popUpInitialize();
 
+        targetList.clear();
+
         final Button confirm = popWindow.findViewById(R.id.confirm_action);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,6 +240,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             roleOwner.setText("ALL PLAYERS");
             roleInfo.setText("PLAYERS ARE INVITED TO DISCUSS WHAT HAPPENED THIS NIGHT AND ACCUSE SOMEONE EXPECTED TO BE A WOLF");
             r = -1;
+            Log.d("STATUS_EFFECT", "TURN No : "+turn+ " -----------------------------");
             debugging();
             turn ++;
         }
@@ -248,11 +251,14 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             role.setText(gameList.get(r).name);
             roleOwner.setText(gameList.get(r).owner);
             roleInfo.setText(gameList.get(r).desc);
+
+            gameList.get(r).refreshAbility();
+            targetListMaxSize = gameList.get(r).returnTarget();
             targetSize();
         }
 
         if (r != -1) {
-            nextRoleSpecificationCheck();
+            checkSkip();
             }
     }
 
@@ -271,7 +277,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
     void debugging(){
         for (Role x : gameList) {
-            Log.d("STATUS_EFFECT", "TURN No : "+turn+ " -----------------------------");
             if (x.isBlued) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isBlued");
             if (x.isServed) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isServed");
             if (x.isPreviouslyGuarded) Log.d("STATUS_EFFECT", ""+getString(x.name)+" isGuarded");
@@ -303,112 +308,10 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     }
 
     // --------------------------------------------------------------------------------------------
-    // SINGLE ROLE SPECIFICATIONS
+    // SPECIFICATIONS
 
-    void nextRoleSpecificationCheck(){
-
-        // Include specific rules for certain roles
-        // Keep in mind that this specification checks will be called just after switching to a role
-        // and displaying his data in the screen.
-        // Specification and rules could be added here
-        // no order is needed
-
-        // BLUE WOLF
-        // Can use his power once every three turns
-        if (gameList.get(r).role == ROLES.BLUE_WOLF && turn % 3 != 0){
-            displayCurrentRole();
-        }
-
-        // RED WOLF
-        // Use his power to block an enemy
-
-        // SERVANT
-        // In the first turn of the game, the servant choose a target to inherit his power after
-        // his death
-        if (gameList.get(r).role == ROLES.SERVANT && turn != 1){
-            displayCurrentRole();
-        }
-
-        // CUPID
-        // In the first turn of the game, he bind two with the power of love
-        // if one dies, the other dies too
-        if (gameList.get(r).role == ROLES.CUPID && turn != 1){
-            displayCurrentRole();
-        }
-
-        //PYROMANIAC
-        // In the first turn of the game, the pyromaniac choose a target,
-        // if he is attacked, he do not die,
-        // instead, the first wolf on his (the target) right side dies
-        // the pyromaniac become a simple villager
-        if (gameList.get(r).role == ROLES.PYROMANIAC && turn != 1){
-            displayCurrentRole();
-        }
-
-        // WILD CHILD
-        // In the first turn of the game, the wild child choose a target,
-        // if dead, he join the wolf pack
-        if (gameList.get(r).role == ROLES.WILD_CHILD && turn != 1){
-            displayCurrentRole();
-        }
-
-        // GUARDIAN
-        // Every turn, he protect someone from the wolves
-        // Can't protect the same person twice in a row
-
-        // FATHER OF WOLF
-        // Starting from the second turn, the father of wolf can infect someone
-        // He can use this power once
-        if (gameList.get(r).role == ROLES.FATHER_WOLF && turn == 1){
-            displayCurrentRole();
-        }
-
-        // SORCERER
-        // Has two potions, to revive or to Kill
-
-        // SEER
-        // Has the ability to see the true roles
-
-        // SHEPHERD
-        // send his two sheep to two players.
-        // if a sheep is sent to a wolf, he dies
-
-        // BARBER
-        // Has an active power of killing a player
-        // if the target is a wolf, he is dead and the barber became a simple villager
-        // if the target is not a wolf, both the target and the barber die.
-        if (gameList.get(r).role == ROLES.BARBER && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isKnighted) {
-            displayCurrentRole();
-        }
-
-        // ALIEN
-        // His objective is to guess the role of each player to win the game
-        // if he guess wrong, he dies
-        if (gameList.get(r).role == ROLES.ALIEN && turn != 1){
-            displayCurrentRole();
-        }
-
-        // KNIGHT
-        // If he is being targeted by someone, he can use another player as a human shield,
-        // the chosen player obviously dies and the knight become a simple villager
-        if (gameList.get(r).role == ROLES.KNIGHT && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isHavingACut) {
-            displayCurrentRole();
-        }
-
-        // CAPTAIN
-        // Chooses who is going to start the discussion after each turn
-        // Can decide which player will die if the votes for some players are even.
-
-        // SIMPLE VILLAGER
-        // No power
-        if (gameList.get(r).role == ROLES.VILLAGER){
-            displayCurrentRole();
-        }
-
-        // BEAR
-        // Make a sound if there is a wolf (not an infected) by his side
-        // Make a sound if he is infected
-
+    void checkSkip(){
+        if ( (gameList.get(r).isSkippable = gameList.get(r).returnSkip(turn)) ) displayCurrentRole();
     }
 
     void popUpRoleListTargetFilter(int f){
@@ -478,6 +381,85 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     }
 
     void confirmAction(){
+        if (!targetList.isEmpty()) {
+            gameList.get(r).useAbility(gameList);
+        } else{
+            displayShortToast("NO TARGET");
+        }
+        dialog.dismiss();
+        displayCurrentRole();
+    }
+
+    void powerText(){
+        TextView text = popWindow.findViewById(R.id.powerText);
+        String msg = "";
+        switch (gameList.get(r).role){
+            case BLUE_WOLF: msg = getString(R.string.blueWolfMsg); break;
+            case RED_WOLF: msg = getString(R.string.redWolfMsg);break;
+            case VILLAGER: msg = getString(R.string.simpleVillagerMsg);break;
+            case BEAR: msg = getString(R.string.bearPower);break;
+            case SEER: msg = getString(R.string.seerMsg);break;
+            case ALIEN: msg = getString(R.string.alienMsg);break;
+            case CUPID: msg = getString(R.string.cupidMsg);break;
+            case BARBER: if (gameList.get(r).isKilled || gameList.get(r).isKnighted || gameList.get(r).isSorcererEd) msg = getString(R.string.barberKilledMsg);
+                         else msg = getString(R.string.barberMsg);break;
+            case KNIGHT: if (gameList.get(r).isKilled || gameList.get(r).isHavingACut || gameList.get(r).isSorcererEd) msg = getString(R.string.knightKillMsg);
+                         else msg = getString(R.string.knightPeaceMsg);break;
+            case CAPTAIN: if (gameList.get(r).isKilled || gameList.get(r).isKnighted || gameList.get(r).isSorcererEd || gameList.get(r).isHavingACut) msg = getString(R.string.captainDeadMsg);
+                          else msg = getString(R.string.captainMsg);break;
+            case SERVANT:
+        }
+    }
+
+    int findOtherLover(int currentLover){
+        for (Role x : gameList) {
+            if (gameList.indexOf(x) != currentLover && x.isLover) return gameList.indexOf(x);
+        }
+        return -1;
+    }
+
+    void lovePrice(int r){
+        if (gameList.get(r).isLover){
+            if (gameList.get(r).isKilled) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isSorcererEd) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isKnighted) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+
+            if (gameList.get(r).isHavingACut) {
+                gameList.get(findOtherLover(r)).isKilled = true;
+                gameList.get(findOtherLover(r)).isLover = false;
+                gameList.get(r).isLover = false; }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // --------------------------------------------------------------------------------------------
+    // FUNCTION GRAVE
+    // UNUSED FUNCTIONS
+    // SOME HARDCODED MESS HERE
+    // YOU GOTTA DIG DOWN FOR A MOMENT ...
+
+    void confirmActionHC(){
         switch (gameList.get(r).role){
             case BLUE_WOLF: bluePower(); break;
             case RED_WOLF: redPower(); break;
@@ -493,16 +475,117 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             case SEER: seerPower(); break;
             case SHEPHERD: sheepPower();break;
             case BARBER: barberKilledPower(); break;
-            case ALIEN: /*alien guess*/ break;
+            case ALIEN: break;
             case KNIGHT: knightKilledEffect();
             case CAPTAIN: captainPower(); break;
             case BEAR: bearPower(); break;
         }
-        displayCurrentRole();
-        dialog.dismiss();
     }
 
-    // --------------------------------------------------------------------------------------------
+    void nextRoleSpecificationCheck(){
+        // Include specific rules for certain roles
+        // Keep in mind that this specification checks will be called just after switching to a role
+        // and displaying his data in the screen.
+        // Specification and rules could be added here
+        // no order is needed
+
+        // BLUE WOLF
+        // Can use his power once every three turns
+        if (gameList.get(r).role == ROLES.BLUE_WOLF && turn % 3 != 0){
+            displayCurrentRole();
+        }
+
+        // RED WOLF
+        // Use his power to block an enemy
+
+        // SERVANT
+        // In the first turn of the game, the servant choose a target to inherit his power after
+        // his death
+        if (gameList.get(r).role == ROLES.SERVANT && turn != 1){
+            displayCurrentRole();
+        }
+
+        // CUPID
+        // In the first turn of the game, he bind two with the power of love
+        // if one dies, the other dies too
+        if (gameList.get(r).role == ROLES.CUPID && turn != 1){
+            displayCurrentRole();
+        }
+
+        //PYROMANIAC
+        // In the first turn of the game, the pyromaniac choose a target,
+        // if he is attacked, he do not die,
+        // instead, the first wolf on his (the target) right side dies
+        // the pyromaniac become a simple villager
+        if (gameList.get(r).role == ROLES.PYROMANIAC && turn % 2 == 0){
+            displayCurrentRole();
+        }
+
+        // WILD CHILD
+        // In the first turn of the game, the wild child choose a target,
+        // if dead, he join the wolf pack
+        if (gameList.get(r).role == ROLES.WILD_CHILD && turn != 1){
+            displayCurrentRole();
+        }
+
+        // GUARDIAN
+        // Every turn, he protect someone from the wolves
+        // Can't protect the same person twice in a row
+
+        // FATHER OF WOLF
+        // Starting from the second turn, the father of wolf can infect someone
+        // He can use this power once
+        if (gameList.get(r).role == ROLES.FATHER_WOLF && turn == 1){
+            displayCurrentRole();
+        }
+
+        // SORCERER
+        // Has two potions, to revive or to Kill
+
+        // SEER
+        // Has the ability to see the true roles
+
+        // SHEPHERD
+        // send his two sheep to two players.
+        // if a sheep is sent to a wolf, he dies
+
+        // BARBER
+        // Has an active power of killing a player
+        // if the target is a wolf, he is dead and the barber became a simple villager
+        // if the target is not a wolf, both the target and the barber die.
+        if (gameList.get(r).role == ROLES.BARBER && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isKnighted) {
+            displayCurrentRole();
+        }
+
+        // ALIEN
+        // His objective is to guess the role of each player to win the game
+        // if he guess wrong, he dies
+        if (gameList.get(r).role == ROLES.ALIEN && turn != 1){
+            displayCurrentRole();
+        }
+
+        // KNIGHT
+        // If he is being targeted by someone, he can use another player as a human shield,
+        // the chosen player obviously dies and the knight become a simple villager
+        if (gameList.get(r).role == ROLES.KNIGHT && turn != 1 && !gameList.get(r).isKilled && !gameList.get(r).isSorcererEd && !gameList.get(r).isHavingACut) {
+            displayCurrentRole();
+        }
+
+        // CAPTAIN
+        // Chooses who is going to start the discussion after each turn
+        // Can decide which player will die if the votes for some players are even.
+
+        // SIMPLE VILLAGER
+        // No power
+        if (gameList.get(r).role == ROLES.VILLAGER){
+            displayCurrentRole();
+        }
+
+        // BEAR
+        // Make a sound if there is a wolf (not an infected) by his side
+        // Make a sound if he is infected
+
+    }
 
     void blueEffect(){
         if (gameList.get(r).isBlued){
@@ -548,37 +631,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             for (Role x : targetList) {
                 gameList.get(gameList.indexOf(x)).isLover = true;
             }
-        }
-    }
-
-    int findOtherLover(int currentLover){
-        for (Role x : gameList) {
-            if (gameList.indexOf(x) != currentLover && x.isLover) return gameList.indexOf(x);
-        }
-        return -1;
-    }
-
-    void lovePrice(int r){
-        if (gameList.get(r).isLover){
-            if (gameList.get(r).isKilled) {
-                gameList.get(findOtherLover(r)).isKilled = true;
-                gameList.get(findOtherLover(r)).isLover = false;
-                gameList.get(r).isLover = false; }
-
-            if (gameList.get(r).isSorcererEd) {
-                gameList.get(findOtherLover(r)).isKilled = true;
-                gameList.get(findOtherLover(r)).isLover = false;
-                gameList.get(r).isLover = false; }
-
-            if (gameList.get(r).isKnighted) {
-                gameList.get(findOtherLover(r)).isKilled = true;
-                gameList.get(findOtherLover(r)).isLover = false;
-                gameList.get(r).isLover = false; }
-
-            if (gameList.get(r).isHavingACut) {
-                gameList.get(findOtherLover(r)).isKilled = true;
-                gameList.get(findOtherLover(r)).isLover = false;
-                gameList.get(r).isLover = false; }
         }
     }
 
@@ -691,5 +743,6 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             }
         }
     }
+
 
 }
