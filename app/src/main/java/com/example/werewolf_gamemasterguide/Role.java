@@ -122,9 +122,10 @@ public class Role implements java.io.Serializable {
 
                 case FATHER_WOLF:
                         for (Role x : list){
-                            if(!gameList.get(gameList.indexOf(x)).isGuarded) {
+                            if(!gameList.get(gameList.indexOf(x)).isGuarded && abilityOne == 1) {
                                 gameList.get(gameList.indexOf(x)).isInfected = true;
                                 gameList.get(gameList.indexOf(x)).isKilled = false;
+                                abilityOne = 0;
                             }
                         } break;
 
@@ -197,6 +198,10 @@ public class Role implements java.io.Serializable {
 
                 case CAPTAIN:
                         for (Role x : list){
+                            if (isBlocked || isKnighted || isKilled || isSorcererEd || isHavingACut){
+                                isCaptain = false;
+                                gameList.get(gameList.indexOf(x)).isCaptain = true;
+                            } else
                             gameList.get(gameList.indexOf(x)).isTalkingFirst = true;
                         }break;
 
@@ -299,7 +304,7 @@ public class Role implements java.io.Serializable {
         }
     }
 
-    public void clearAttribute(){
+    public void resolveAttribute(){
                 isBlued = false;
                 if (isGuarded) isPreviouslyGuarded = true;
                 else isPreviouslyGuarded = false;

@@ -254,7 +254,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
 
             gameList.get(r).refreshAbility();
             targetListMaxSize = gameList.get(r).returnTarget();
-            targetSize();
+            // targetSize();
         }
 
         if (r != -1) {
@@ -334,8 +334,12 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             // case SORCERER: break;
             // case SEER:break;
             // case SHEPHERD: break;
-            case BARBER: if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f); break;
-            case ALIEN: if (gameList.get(f).role == ROLES.ALIEN && !gameList.get(f).isBlued) deleteRoleView(f); break;
+            case BARBER: if (gameList.get(r).isSorcererEd || gameList.get(r).isKilled || gameList.get(r).isKnighted) {
+                if(gameList.get(f).role == ROLES.BARBER) deleteRoleView(f);
+                    } else deleteRoleView(f); break;
+            case ALIEN: if (r == -1) {
+                if (gameList.get(f).role == gameList.get(r).role) deleteRoleView(f);}
+                else deleteRoleView(f); break;
             case KNIGHT: if (gameList.get(f).role == ROLES.KNIGHT) deleteRoleView(f); break;
             // case CAPTAIN: break;
             // case VILLAGER: break;
@@ -383,11 +387,20 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     void confirmAction(){
         if (!targetList.isEmpty()) {
             gameList.get(r).useAbility(gameList);
+            if ((gameList.get(r).role == ROLES.CAPTAIN || gameList.get(r).isCaptain)  && (gameList.get(r).isKilled || gameList.get(r).isSorcererEd || gameList.get(r).isKnighted || gameList.get(r).isHavingACut)){
+                dialog.dismiss();
+                usePower();
+                displayShortToast("PICK A NEW CAPTAIN !");
+            }
+            else {
+                dialog.dismiss();
+                displayCurrentRole();
+            }
         } else{
             displayShortToast("NO TARGET");
+            dialog.dismiss();
+            displayCurrentRole();
         }
-        dialog.dismiss();
-        displayCurrentRole();
     }
 
     void powerText(){
