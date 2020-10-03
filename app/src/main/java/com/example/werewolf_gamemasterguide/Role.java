@@ -198,7 +198,7 @@ public class Role implements java.io.Serializable {
 
                 case CAPTAIN:
                         for (Role x : list){
-                            if (isBlocked || isKnighted || isKilled || isSorcererEd || isHavingACut){
+                            if (isBlocked){
                                 isCaptain = false;
                                 gameList.get(gameList.indexOf(x)).isCaptain = true;
                             } else
@@ -305,15 +305,19 @@ public class Role implements java.io.Serializable {
     }
 
     public void resolveAttribute(){
-                isBlued = false;
-                if (isGuarded) isPreviouslyGuarded = true;
-                else isPreviouslyGuarded = false;
-                isGuarded = false;
-                isBlocked = false;
-                isMuted = false;
-                isSeen = false;
-                isSheep = false;
-                isTalkingFirst = false;
+        if (isAlive){
+            isBlued = false;
+            if (isGuarded) isPreviouslyGuarded = true;
+            else isPreviouslyGuarded = false;
+            isGuarded = false;
+            isBlocked = false;
+            if (role == ROLES.CAPTAIN && isAlive && !isCaptain) isCaptain = true;
+            isMuted = false;
+            isSeen = false;
+            isSheep = false;
+            isTalkingFirst = false;
+        }
+
     }
 
 }

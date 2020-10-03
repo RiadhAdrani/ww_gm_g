@@ -229,9 +229,17 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     }
 
     void displayCurrentRole(){
+        if (r == -1){
+            for (Role x : gameList) {
+                x.resolveAttribute();
+                temporaryCaptain(x);
+            }
+        }
+
         r++;
         targetListMaxSize = 0;
         targetList.clear();
+
         if (r >= ( gameList.size())) {
             autoResolve();
             String turnText = ""+turn;
@@ -244,6 +252,8 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             debugging();
             turn ++;
         }
+
+
 
         else{
             String turnText = ""+turn;
@@ -387,7 +397,7 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
     void confirmAction(){
         if (!targetList.isEmpty()) {
             gameList.get(r).useAbility(gameList);
-            if ((gameList.get(r).role == ROLES.CAPTAIN || gameList.get(r).isCaptain)  && (gameList.get(r).isKilled || gameList.get(r).isSorcererEd || gameList.get(r).isKnighted || gameList.get(r).isHavingACut)){
+            if (gameList.get(r).isBlocked && gameList.get(r).isCaptain){
                 dialog.dismiss();
                 usePower();
                 displayShortToast("PICK A NEW CAPTAIN !");
@@ -400,6 +410,12 @@ public class GameActivity extends AppCompatActivity implements java.io.Serializa
             displayShortToast("NO TARGET");
             dialog.dismiss();
             displayCurrentRole();
+        }
+    }
+
+    void temporaryCaptain(Role role){
+        if (gameList.get(findRole(ROLES.CAPTAIN)).isAlive && gameList.get(gameList.indexOf(role)).isCaptain){
+            gameList.get(gameList.indexOf(role)).isCaptain = false;
         }
     }
 
